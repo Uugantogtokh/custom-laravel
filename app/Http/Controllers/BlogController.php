@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Interfaces\BlogRepositoryInterface;
 use Illuminate\Http\Request;
 use App\Models\Blog;
+use App\Rules\UniqueValue;
 
 class BlogController extends Controller
 {
@@ -27,8 +28,13 @@ class BlogController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required|max:255|unique:blogs',
-            'info' => 'required',
+            'title' => [
+                'required',
+                'max:255',
+                new UniqueValue('blogs', 'title'),
+                'string',
+            ],
+            'info' => 'required|string',
         ]);
 
         $blogDetails = [
@@ -45,8 +51,13 @@ class BlogController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'title' => 'required|max:255',
-            'info' => 'required',
+            'title' => [
+                'required',
+                'max:255',
+                new UniqueValue('blogs', 'title'),
+                'string',
+            ],
+            'info' => 'required|string',
         ]);
 
         $newDetails = [

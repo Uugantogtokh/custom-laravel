@@ -19,7 +19,9 @@ class BlogController extends Controller
     public function index()
     {
         $blogs = Blog::paginate(10);
+
         $message = 'Not have data';
+
         $startNumber = ($blogs->currentPage() - 1) * $blogs->perPage() + 1;
 
         return view('blogs.index', compact('blogs', 'message', 'startNumber'));
@@ -30,11 +32,15 @@ class BlogController extends Controller
         $request->validate([
             'title' => [
                 'required',
-                'max:255',
+                'max:20',
                 new UniqueValue('blogs', 'title'),
                 'string',
             ],
-            'info' => 'required|string',
+            'info' => [
+                'required',
+                'max:100',
+                'string',
+            ],
         ]);
 
         $blogDetails = [
@@ -59,11 +65,15 @@ class BlogController extends Controller
         $request->validate([
             'title' => [
                 'required',
-                'max:255',
+                'max:20',
                 new UniqueValue('blogs', 'title'),
                 'string',
             ],
-            'info' => 'required|string',
+            'info' => [
+                'required',
+                'max:100',
+                'string',
+            ],
         ]);
 
         $newDetails = [

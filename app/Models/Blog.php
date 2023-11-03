@@ -13,4 +13,9 @@ class Blog extends Model
         'title',
         'info',
     ];
+
+    public function scopeOrderByCreatedAt($query)
+    {
+        return $query->orderBy('created_at', 'asc');
+    }
 }

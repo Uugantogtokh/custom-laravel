@@ -17,7 +17,7 @@
             <a class="navbar-brand h1" href={{ route('blogs.index') }}>Blogs</a>
             <div class="justify-end ">
                 <div class="col ">
-                    <a class="btn btn-sm btn-success" href={{ route('blogs.create') }}>Add Blog</a>    
+                    <a class="btn btn-sm btn-success" href={{ route('blogs.create') }}>Add Blog</a>
                 </div>
             </div>
     </nav>
@@ -25,6 +25,15 @@
         <div class="row h-100 justify-content-center align-items-center">
             <div class="col-10 col-md-8 col-lg-6">
                 <h3>Update Blog</h3>
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 <form action="{{ route('blogs.update', $blog->id) }}" method="post">
                     @csrf
                     @method('PUT')

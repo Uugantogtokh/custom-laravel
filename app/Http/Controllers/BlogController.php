@@ -50,6 +50,12 @@ class BlogController extends Controller
 
     public function update(Request $request, $id)
     {
+        $blog = $this->blogRepository->getBlogById($id);
+
+        if (!$blog) {
+            return response()->json(['message' => 'Blog not found.'], 404);
+        }
+
         $request->validate([
             'title' => [
                 'required',
@@ -73,10 +79,16 @@ class BlogController extends Controller
 
     public function destroy($id)
     {
-        $this->blogRepository->deleteBlog($id);
+        $blog = $this->blogRepository->getBlogById($id);
 
-        return redirect()->route('blogs.index')
-            ->with('success', 'Blog deleted successfully');
+        if (!$blog) {
+            return response()->json(['message' => 'Blog not found.'], 404);
+        } else {
+            $this->blogRepository->deleteBlog($id);
+
+            return redirect()->route('blogs.index')
+                ->with('success', 'Blog deleted successfully');
+        }
     }
 
     public function create()

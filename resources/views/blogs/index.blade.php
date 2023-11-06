@@ -48,7 +48,7 @@
             <a class="navbar-brand h1" href={{ route('blogs.index') }}>Blogs</a>
             <div class="justify-end ">
                 <div class="col ">
-                    <a class="btn btn-sm btn-success" href={{ route('blogs.create') }}>Add Post</a>
+                    <a class="btn btn-sm btn-success" href={{ route('blogs.create') }}>Add Blog</a>
                 </div>
             </div>
     </nav>
